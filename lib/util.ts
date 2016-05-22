@@ -1,13 +1,9 @@
-
-
-export interface Dictionary<TValue>
-{
-    [key: string]: TValue;
+export interface Dictionary<TValue> {
+    [key : string] : TValue;
 }
 
-export function camelCase(s:string):string {
-    switch(s.length)
-    {
+export function camelCase(s : string) : string {
+    switch (s.length) {
         case 0:
             return '';
 
@@ -19,12 +15,12 @@ export function camelCase(s:string):string {
     }
 }
 
-export function arrayToDictionary<T>(array:T[], key:any):Dictionary<T> {
-    var d:Dictionary<T> = {};
-    var keyFn:(t:T) => string;
+export function arrayToDictionary<T>(array : T[], key : any) : Dictionary<T> {
+    var d : Dictionary<T> = {};
+    var keyFn : (t : T) => string;
 
     if (typeof key === 'string') {
-        keyFn = function(t:T):string {
+        keyFn = function (t : T) : string {
             return t[key];
         }
     } else {

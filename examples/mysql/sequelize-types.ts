@@ -8,69 +8,116 @@
 //
 ////////////////////////////////////////////////////////////////////
 
-/// <reference path="../typings/index.d.ts"/>
+/// <reference path="../../typings/index.d.ts" />
 
 import sequelize = require('sequelize');
 import types = require('./sequelize-types'); // important so we can use same fully qualified names in all generated files
 
-/*__each__ idFields */ export type __fieldNameProperCase__ = number;
+export type RoleId = number;
+export type UserId = number;
 
-/*__ignore__*/ export interface __translatedFieldType__ {}
-/*__ignore__*/ export interface __customFieldType__ {}
-/*__ignore__*/ export interface __instanceTypeName__ {}
-/*__ignore__*/ export interface __pojoName__ {}
-/*__ignore__*/ export interface __idFieldNameTitleCase__ {}
 
 var asserters:{[typeName:string]:(pojo:any, allowUndefined?:boolean) => void} = {};
 
-/*__startEach__ tables */
-
 //////////////////////////////////////////////////////////////////////////////
 //
 //
-//               __tableName__
+//               Roles
 //
 //
 //////////////////////////////////////////////////////////////////////////////
 
 
-export interface __pojoName__
+export interface RolesPojo
 {
-    /*__each__ fields */ __fieldNameAndIsNullable__:__customFieldType__;
+    RoleID:RoleId;
+    RoleName:string;
 }
 
-export interface __instanceTypeName__ extends sequelize.Instance<__pojoName__>, __pojoName__ { }
+export interface RolesInstance extends sequelize.Instance<RolesPojo>, RolesPojo { }
 
-export interface __modelTypeName__ extends sequelize.Model<__instanceTypeName__, __pojoName__> { }
+export interface RolesModel extends sequelize.Model<RolesInstance, RolesPojo> { }
 
-export function __assertValidMethodName__(pojo:__pojoName__, allowUndefined?:boolean):void {
+export function AssertValidRoles(pojo:RolesPojo, allowUndefined?:boolean):void {
 
     if (pojo === undefined || pojo === null) {
         if (allowUndefined) {
             return;
         }
-        throw new Error('Invalid __tableNameSingular__ provided. It is \'' + (typeof pojo) + '\'.');
+        throw new Error('Invalid Role provided. It is \'' + (typeof pojo) + '\'.');
     }
     var fieldNames:string[] = Object.keys(pojo);
     if (fieldNames.length === 0) {
-        throw new Error('Invalid __tableNameSingular__ provided. It is an empty object.');
+        throw new Error('Invalid Role provided. It is an empty object.');
     }
 
     var i:number = fieldNames.length;
     while(i-- > 0) {
         switch(fieldNames[i]) {
-            /*__each__ fields */ case '__fieldName__': assertValidFieldType('__tableNameSingular__', '__fieldName__', pojo, '__translatedFieldType__'); break;
+            case 'RoleID': assertValidFieldType('Role', 'RoleID', pojo, 'number'); break;
+            case 'RoleName': assertValidFieldType('Role', 'RoleName', pojo, 'string'); break;
             default:
-                throw new Error('Invalid __tableNameSingular__ provided. Field \'' + fieldNames[i] + '\' is not supported.')
+                throw new Error('Invalid Role provided. Field \'' + fieldNames[i] + '\' is not supported.')
         }
     }
 }
-asserters['__tableNameSingular__'] = __assertValidMethodName__;
+asserters['Role'] = AssertValidRoles;
 
 
 
 
-/*__endEach__*/
+
+//////////////////////////////////////////////////////////////////////////////
+//
+//
+//               Users
+//
+//
+//////////////////////////////////////////////////////////////////////////////
+
+
+export interface UsersPojo
+{
+    UserID:UserId;
+    RoleID:RoleId;
+    UserName:string;
+    role?:RolesPojo;
+}
+
+export interface UsersInstance extends sequelize.Instance<UsersPojo>, UsersPojo { }
+
+export interface UsersModel extends sequelize.Model<UsersInstance, UsersPojo> { }
+
+export function AssertValidUsers(pojo:UsersPojo, allowUndefined?:boolean):void {
+
+    if (pojo === undefined || pojo === null) {
+        if (allowUndefined) {
+            return;
+        }
+        throw new Error('Invalid User provided. It is \'' + (typeof pojo) + '\'.');
+    }
+    var fieldNames:string[] = Object.keys(pojo);
+    if (fieldNames.length === 0) {
+        throw new Error('Invalid User provided. It is an empty object.');
+    }
+
+    var i:number = fieldNames.length;
+    while(i-- > 0) {
+        switch(fieldNames[i]) {
+            case 'UserID': assertValidFieldType('User', 'UserID', pojo, 'number'); break;
+            case 'RoleID': assertValidFieldType('User', 'RoleID', pojo, 'number'); break;
+            case 'UserName': assertValidFieldType('User', 'UserName', pojo, 'string'); break;
+            case 'role': assertValidFieldType('User', 'role', pojo, 'RolesPojo'); break;
+            default:
+                throw new Error('Invalid User provided. Field \'' + fieldNames[i] + '\' is not supported.')
+        }
+    }
+}
+asserters['User'] = AssertValidUsers;
+
+
+
+
 
 var BOOLEAN_TYPE:string = typeof(true);
 var NUMBER_TYPE:string = typeof(1);

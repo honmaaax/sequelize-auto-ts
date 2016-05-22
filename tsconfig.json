@@ -1,53 +1,22 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "moduleResolution": "node",
-        "isolatedModules": false,
-        "jsx": "react",
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "declaration": false,
-        "noImplicitAny": false,
-        "removeComments": true,
-        "noLib": false,
-        "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true
-    },
-    "filesGlob": [
-        "**/*.ts",
-        "**/*.tsx",
-        "!node_modules/**"
-    ],
-    "files": [
-        "dest/sequelize-models.ts",
-        "dest/sequelize-names.ts",
-        "dest/sequelize-types.ts",
-        "examples/mysql-userdemo-generated/sequelize-models.ts",
-        "examples/mysql-userdemo-generated/sequelize-types.ts",
-        "examples/mysql-userdemo-usage.ts",
-        "examples/mysql-userdemo.ts",
-        "examples/mysql-world-generated/sequelize-models.ts",
-        "examples/mysql-world-generated/sequelize-types.ts",
-        "examples/mysql-world.ts",
-        "lib/cli.ts",
-        "lib/schema.ts",
-        "lib/sequelize-auto-ts.ts",
-        "lib/sequelize-model-factory.ts",
-        "lib/sequelize-models.ts",
-        "lib/sequelize-names.ts",
-        "lib/sequelize-types.ts",
-        "lib/util.ts",
-        "typings/bluebird/bluebird.d.ts",
-        "typings/change-case/change-case.d.ts",
-        "typings/lodash/lodash.d.ts",
-        "typings/node/node.d.ts",
-        "typings/sequelize/sequelize.d.ts",
-        "typings/tsd.d.ts",
-        "typings/underscore.string/underscore.string.d.ts",
-        "typings/validator/validator.d.ts"
-    ],
-    "atom": {
-        "rewriteTsconfig": true
-    }
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "isolatedModules": false,
+    "jsx": "react",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "preserveConstEnums": true,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "exclude": [
+    "node_modules",
+    "typings"
+  ]
 }

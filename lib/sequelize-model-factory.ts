@@ -8,10 +8,11 @@
 //
 ////////////////////////////////////////////////////////////////////
 
-/// <reference path='../typings/node/node.d.ts' />
-/// <reference path='./sequelize.d.ts' />
+/// <reference path="../typings/index.d.ts"/>
 
 import types = require('./sequelize-types');
+import sequelize = require("sequelize");
+import {AssociationOptionsBelongsToMany} from "sequelize";
 
 var Sequelize:sequelize.SequelizeStatic = require('sequelize');
 
@@ -68,8 +69,10 @@ export class Models {
 
         /*__startEach__ xrefs */
 
-        this.__firstTableNameCamel__.hasMany(this.__secondTableNameCamel__, {through: '__xrefTableName__'});
-        this.__secondTableNameCamel__.hasMany(this.__firstTableNameCamel__, {through: '__xrefTableName__'});
+        let associationOptions : AssociationOptionsBelongsToMany = { through: '__xrefTableName__' };
+
+        this.__firstTableNameCamel__.hasMany(this.__secondTableNameCamel__, associationOptions);
+        this.__secondTableNameCamel__.hasMany(this.__firstTableNameCamel__, associationOptions);
 
         /*__endEach__*/
     }

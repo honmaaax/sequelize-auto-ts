@@ -1,19 +1,87 @@
-sequelize-auto-ts
-=================
+# sequelize-auto-ts
 
 Generate Sequelize definition statements and compatible TypeScript definitions from a database schema
 
+# Development Notes
+
+* *Composite Primary and Foreign Keys*
+
+    Composite Primary and Foreign Keys are currently NOT supported in Sequelize. Hence as a result, are
+NOT supported by this library.
+    * See: https://github.com/sequelize/sequelize/issues/1485
+    * See: https://github.com/sequelize/sequelize/issues/311
+
+* *Table names on MySQL and Windows*
+
+    Table and database names are stored on disk using the lettercase specified in the CREATE TABLE or CREATE DATABASE
+statement, but MySQL converts them to lowercase on lookup. Name comparisons are not case sensitive.
+
+    http://dev.mysql.com/doc/refman/5.0/en/identifier-case-sensitivity.html
+
+    lower_case_table_names=2
+
+# Pre-prerequisites
+
+You will need the following things properly installed on your computer.
+
+* node >= 5
+* npm >= 3
+
+To install the above, it is highly recommended to use a node version manager (i.e. https://github.com/creationix/nvm)
+
+# Pre-requisites
+
+* typescript >= 1.8 `npm install -g typescript`
+* typings >= 1.x `npm install -g typings`
+* grunt-cli `npm install -g grunt-cli`
+
+__NOTES (05/20/2016)__ - check the version of `typings` you are using. if it's < 1.x, there are breaking changes that 1.x has introduced and you will need to install the latest version.
+
+### Install npm and typscript Packages
+
+* `npm install`
+* `typings install`
+
+### Build Typescript Sources
+
+The following should lint and transpile typescript sources to javascript (there should be no errors)
+
+* `npm run build`
+
 # Running sequelize-auto-ts
 
-Use node to execute `lib\cli.ts` and pass in four required parameters: database, username, password, and target directory.
+Change directory to the root of the source: `sequelize-auto-ts/`
+
+Use node to execute `lib\cli.ts` and pass in four required parameters:
+
+* database
+* username
+* password
+* target directory
+* database dialect
+
+Current supported database dialects:
+
+* MySQL - `mysql`
+* PostGresql - `postgres`
+
+run the following command:
 
 ```
-c:\sequelize-auto-ts>node lib\cli.ts world root rootPassword c:\my-project\src\models
+node lib/cli.js [database-name] [username] [password] [output-path] [database-dialect]
 ```
 
-# Version 1.0.3 documentation
+example:
 
-I pushed version 1.0.3 to NPM on 1/18/15 but have not updated the documentation yet. This version has a lot of new features. I'll update the documentation as soon as I can. If there is anything specific that should be updated or questions you have please create an issue in GitHub.
+```
+node lib/cli.js northwind dbuser password temp postgres
+```
+
+Additionally, you may also run the CLI in interactive mode by running the following (without arguments):
+
+```
+node lib/cli.js
+```
 
 # Generated files
 
@@ -39,6 +107,8 @@ This is the definition file for Node. As with `sequelize.d.ts` if it is found in
 
 For the rest of the explanation we'll use a very simple database with two tables and a relationship between them. It is defined as follows:
 
+MySQL
+
 ```SQL
 CREATE TABLE Roles (
 	RoleID INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -52,6 +122,24 @@ CREATE TABLE Users (
 
 	FOREIGN KEY (RoleID) REFERENCES Roles(RoleID)
 );
+```
+
+PostGresql
+
+```SQL
+CREATE TABLE Roles (
+	RoleID SERIAL PRIMARY KEY,
+	RoleName VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Users (
+	UserID SERIAL PRIMARY KEY,
+	RoleID INTEGER NOT NULL,
+	UserName VARCHAR(255) NOT NULL,
+
+	FOREIGN KEY (RoleID) REFERENCES Roles(RoleID)
+);
+
 ```
 
 # Generated Interfaces
@@ -85,9 +173,9 @@ export interface UserPojo
 Next for each table we genearte a plain JavaScript object, with the table name followed by `Pojo`. This base type is used in some input methods so they can easily be generated from scratch and are also returned from instance methods (defined below) by the `toJSON` method.
 
 ```JS
-export interface RoleInstance extends sequelize.Instance<RoleInstance, RolePojo>, RolePojo { }
+export interface RoleInstance extends sequelize.Instance<RolePojo>, RolePojo { }
 
-export interface UserInstance extends sequelize.Instance<UserInstance, UserPojo>, UserPojo { }
+export interface UserInstance extends sequelize.Instance<UserPojo>, UserPojo { }
 ```
 
 Each table then gets an `Instance` interface. This interface represents the object actually returned by Sequelize for each database entity. This interface extends the corresponding `Pojo` interface and thus has an interface field for every database field. It additionally extends `sequelize.Instance` which defines all of the Sequelize methods and fields available on instances, such as `get()`, `set()`, `save()`, etc. For a full list of available methods see the Sequelize documentation or refer to `sequelize.d.ts`.
@@ -149,21 +237,6 @@ models.Users.findAll().complete((err:Error, users:types.UserInstance[]) => {
 
 In the above example, `findAll().complete()` takes a typed callback. If the argument types are not defined correctly, TypeScript will give a proper syntax error.
 
-
-
-
-# Table names on MySQL and Windows
-
-Table and database names are stored on disk using the lettercase specified in the CREATE TABLE or
-CREATE DATABASE statement, but MySQL converts them to lowercase on lookup. Name comparisons are not case sensitive.
-
-http://dev.mysql.com/doc/refman/5.0/en/identifier-case-sensitivity.html
-
-lower_case_table_names=2
-
-
-
-
 # sequelize-auto-ts.json
 
 e.g.
@@ -185,3 +258,4 @@ e.g.
     }
 }
 ```
+
