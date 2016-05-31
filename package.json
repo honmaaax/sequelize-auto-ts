@@ -1,6 +1,6 @@
 {
   "name": "sequelize-auto-ts",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "author": "Samuel Neff <sam@serndesign.com> https://github.com/samuelneff",
   "description": "Generates Sequelize definition statements and TypeScript interfaces for tables in a database.",
   "keywords": [

@@ -39,7 +39,7 @@ export interface __pojoName__
     /*__each__ fields */ __fieldNameAndIsNullable__:__customFieldType__;
 }
 
-export interface __instanceTypeName__ extends sequelize.Instance<__instanceTypeName__, __pojoName__>, __pojoName__ { }
+export interface __instanceTypeName__ extends sequelize.Instance<__pojoName__>, __pojoName__ { }
 
 export interface __modelTypeName__ extends sequelize.Model<__instanceTypeName__, __pojoName__> { }
 

@@ -40,7 +40,7 @@
         "typings/index.d.ts",
         "typings/lodash/lodash.d.ts",
         "typings/node/node.d.ts",
-        "typings/sequelize/sequelize.d.ts",
+        "typings/sequelize/index.d.ts",
         "typings/underscore.string/underscore.string.d.ts",
         "typings/validator/validator.d.ts"
     ],
