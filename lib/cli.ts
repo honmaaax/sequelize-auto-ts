@@ -1,4 +1,4 @@
-/// <reference path="../typings/tsd.d.ts"/>
+/// <reference path="../typings/index.d.ts"/>
 
 import generator = require("./sequelize-auto-ts");
 import fs = require("fs");

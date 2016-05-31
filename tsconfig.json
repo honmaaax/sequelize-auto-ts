@@ -20,9 +20,6 @@
         "!node_modules/**"
     ],
     "files": [
-        "dest/sequelize-models.ts",
-        "dest/sequelize-names.ts",
-        "dest/sequelize-types.ts",
         "examples/mysql-userdemo-generated/sequelize-models.ts",
         "examples/mysql-userdemo-generated/sequelize-types.ts",
         "examples/mysql-userdemo-usage.ts",
@@ -40,10 +37,10 @@
         "lib/util.ts",
         "typings/bluebird/bluebird.d.ts",
         "typings/change-case/change-case.d.ts",
+        "typings/index.d.ts",
         "typings/lodash/lodash.d.ts",
         "typings/node/node.d.ts",
         "typings/sequelize/sequelize.d.ts",
-        "typings/tsd.d.ts",
         "typings/underscore.string/underscore.string.d.ts",
         "typings/validator/validator.d.ts"
     ],
